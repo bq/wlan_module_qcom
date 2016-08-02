@@ -9093,8 +9093,24 @@ int hdd_wlan_startup(struct device *dev )
       hddLog(VOS_TRACE_LEVEL_FATAL,"%s: FTM driver loaded success fully",__func__);
       pHddCtx->isLoadUnloadInProgress = WLAN_HDD_NO_LOAD_UNLOAD_IN_PROGRESS;
       vos_set_load_unload_in_progress(VOS_MODULE_ID_VOSS, FALSE);
+
+      /* BEGIN: Modified by TinyPi for QRCT connect bug in wifi FTM mode 2015/3/28 */
+      //Open watchdog module
+      if(pHddCtx->cfg_ini->fIsLogpEnabled)
+      {
+         status = vos_watchdog_open(pVosContext,
+            &((VosContextType*)pVosContext)->vosWatchdog, sizeof(VosWatchdogContext));
+
+         if(!VOS_IS_STATUS_SUCCESS( status ))
+         {
+            hddLog(VOS_TRACE_LEVEL_FATAL,"%s: vos_watchdog_open failed",__func__);
+            goto err_wdclose;
+         }
+      }
+
       return VOS_STATUS_SUCCESS;
    }
+   /* END:   Modified by TinyPi for QRCT connect bug in wifi FTM mode 2015/3/28   PN: */
 
    //Open watchdog module
    if(pHddCtx->cfg_ini->fIsLogpEnabled)

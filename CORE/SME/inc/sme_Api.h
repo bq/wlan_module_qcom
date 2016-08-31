@@ -493,20 +493,6 @@ eHalStatus sme_CloseSession(tHalHandle hHal, tANI_U8 sessionId,
                             tANI_U8 bPurgeSmeCmdList,
                             csrRoamSessionCloseCallback callback,
                             void *pContext);
-/*--------------------------------------------------------------------------
-
-  \brief sme_PurgeCmdList() - Purge all the sme cmd list
-
-  This is a synchronous API.
-
-
-  \param hHal - The handle returned by macOpen.
-
-  \param sessionId - A previous opened session's ID.
-
---------------------------------------------------------------------------*/
-
-eHalStatus sme_PurgeCmdList(tHalHandle hHal, tANI_U8 sessionId);
 
 /*--------------------------------------------------------------------------
   
@@ -2195,6 +2181,9 @@ eHalStatus sme_SetKeepAlive (tHalHandle hHal, tANI_U8 sessionId,
             eHAL_STATUS_FAILURE
 -------------------------------------------------------------------------------*/
 eHalStatus sme_GetOperationChannel(tHalHandle hHal, tANI_U32 *pChannel, tANI_U8 sessionId);
+
+eHalStatus sme_register_mgmt_frame_ind_callback(tHalHandle hHal,
+      sir_mgmt_frame_ind_callback callback);
 
 /* ---------------------------------------------------------------------------
 

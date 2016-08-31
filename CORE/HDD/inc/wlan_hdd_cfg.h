@@ -1545,6 +1545,13 @@ typedef enum
 #define CFG_OBSS_HT40_SCAN_WIDTH_TRIGGER_INTERVAL_MAX             ( 900 )
 #define CFG_OBSS_HT40_SCAN_WIDTH_TRIGGER_INTERVAL_DEFAULT         ( 200 )
 
+/* RPS configurations */
+#define CFG_RPS_CPU_MAP_MIN                        (0)
+#define CFG_RPS_CPU_MAP_MAX                        (0xff)
+
+#define CFG_RPS_CPU_MAP_NAME                       "rps_mask"
+#define CFG_RPS_CPU_MAP_DEFAULT                    (0x00)
+
 #define CFG_MULTICAST_HOST_FW_MSGS          "gMulticastHostMsgs"
 #define CFG_MULTICAST_HOST_FW_MSGS_MIN      (0)
 #define CFG_MULTICAST_HOST_FW_MSGS_MAX      (1)
@@ -3095,6 +3102,7 @@ typedef struct
    v_BOOL_t                    crash_inject_enabled;
    v_U8_t                      boffset_correction_enable;
    v_BOOL_t                    disableBarWakeUp;
+   v_U16_t                      rps_mask;
 } hdd_config_t;
 
 /*--------------------------------------------------------------------------- 

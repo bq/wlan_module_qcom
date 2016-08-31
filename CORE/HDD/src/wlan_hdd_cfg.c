@@ -3407,7 +3407,6 @@ REG_VARIABLE( CFG_EXTSCAN_ENABLE, WLAN_PARAM_Integer,
                 CFG_SAR_BOFFSET_SET_CORRECTION_DEFAULT,
                 CFG_SAR_BOFFSET_SET_CORRECTION_MIN,
                 CFG_SAR_BOFFSET_SET_CORRECTION_MAX),
-
    REG_VARIABLE(CFG_DISABLE_BAR_WAKEUP_HOST_NAME, WLAN_PARAM_Integer,
                  hdd_config_t, disableBarWakeUp,
                  VAR_FLAGS_OPTIONAL |
@@ -3415,6 +3414,12 @@ REG_VARIABLE( CFG_EXTSCAN_ENABLE, WLAN_PARAM_Integer,
                  CFG_DISABLE_BAR_WAKEUP_HOST_DEFAULT,
                  CFG_DISABLE_BAR_WAKEUP_HOST_MIN,
                  CFG_DISABLE_BAR_WAKEUP_HOST_MAX),
+    REG_VARIABLE( CFG_RPS_CPU_MAP_NAME, WLAN_PARAM_HexInteger,
+                 hdd_config_t, rps_mask,
+                 VAR_FLAGS_OPTIONAL | VAR_FLAGS_RANGE_CHECK_ASSUME_DEFAULT,
+                 CFG_RPS_CPU_MAP_DEFAULT,
+                 CFG_RPS_CPU_MAP_MIN,
+                 CFG_RPS_CPU_MAP_MAX),
 };
 
 /*

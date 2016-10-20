@@ -7896,7 +7896,11 @@ int wlan_hdd_cfg80211_init(struct device *dev,
 #ifndef CONFIG_ENABLE_LINUX_REG
     /* the flag for the other case would be initialzed in
        vos_init_wiphy_from_nv_bin */
+#if (LINUX_VERSION_CODE >= KERNEL_VERSION(3,14,0))
+    wiphy->regulatory_flags |= REGULATORY_STRICT_REG;
+#else
     wiphy->flags |= WIPHY_FLAG_STRICT_REGULATORY;
+#endif
 #endif
 
     /* This will disable updating of NL channels from passive to
@@ -11084,11 +11088,10 @@ static int __wlan_hdd_change_station(struct wiphy *wiphy,
             }
 
             if (pHddCtx->cfg_ini->fEnableTDLSWmmMode &&
-                   (params->sta_flags_set & BIT(NL80211_STA_FLAG_WME))) {
-
+                   (params->ht_capa || params->vht_capa ||
+                   (params->sta_flags_set & BIT(NL80211_STA_FLAG_WME))))
                 /* TDLS Peer is WME/QoS capable */
                 isQosWmmSta = TRUE;
-            }
 
             VOS_TRACE(VOS_MODULE_ID_HDD, VOS_TRACE_LEVEL_INFO,
                       "%s: TDLS Peer is QOS capable isQosWmmSta= %d HTcapPresent= %d",

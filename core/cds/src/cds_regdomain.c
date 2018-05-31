@@ -662,8 +662,6 @@ int32_t cds_fill_some_regulatory_info(struct regulatory *reg)
 	reg_dmn = get_bdf_reg_dmn(rd);
 
 	country_code = reg_dmn_get_default_country(reg_dmn);
-	if (country_code == CTRY_DEFAULT && reg_dmn == CTRY_DEFAULT)
-		country_code = CTRY_UNITED_STATES;
 
 	if (country_code != CTRY_DEFAULT) {
 		country = find_country(country_code);

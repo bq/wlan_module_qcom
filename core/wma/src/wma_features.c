@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2013-2018 The Linux Foundation. All rights reserved.
+ * Copyright (c) 2013-2019 The Linux Foundation. All rights reserved.
  *
  * Permission to use, copy, modify, and/or distribute this software for
  * any purpose with or without fee is hereby granted, provided that the
@@ -6929,6 +6929,7 @@ QDF_STATUS wma_process_tsm_stats_req(tp_wma_handle wma_handler,
 		return QDF_STATUS_E_NOMEM;
 	}
 	pTsmRspParams->staId = pStats->staId;
+	qdf_copy_macaddr(&pTsmRspParams->bssid, &pStats->bssId);
 	pTsmRspParams->rc = eSIR_FAILURE;
 	pTsmRspParams->tsmStatsReq = pStats;
 	pTsmMetric = &pTsmRspParams->tsmMetrics;
@@ -7804,21 +7805,20 @@ QDF_STATUS wma_process_add_periodic_tx_ptrn_ind(WMA_HANDLE handle,
 		return QDF_STATUS_E_INVAL;
 	}
 
-	params_ptr = qdf_mem_malloc(sizeof(*params_ptr));
-
-	if (!params_ptr) {
-		WMA_LOGE(
-			"%s: unable to allocate memory for periodic_tx_pattern",
-			 __func__);
-		return QDF_STATUS_E_NOMEM;
-	}
-
 	if (!wma_find_vdev_by_addr(wma_handle,
 				   pAddPeriodicTxPtrnParams->mac_address.bytes,
 				   &vdev_id)) {
 		WMA_LOGE("%s: Failed to find vdev id for %pM", __func__,
 			 pAddPeriodicTxPtrnParams->mac_address.bytes);
 		return QDF_STATUS_E_INVAL;
+	}
+
+	params_ptr = qdf_mem_malloc(sizeof(*params_ptr));
+	if (!params_ptr) {
+		WMA_LOGE(
+			"%s: unable to allocate memory for periodic_tx_pattern",
+			 __func__);
+		return QDF_STATUS_E_NOMEM;
 	}
 
 	params_ptr->ucPtrnId = pAddPeriodicTxPtrnParams->ucPtrnId;
